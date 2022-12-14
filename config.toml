@@ -1,0 +1,45 @@
+baseURL = 'https://bueller.io'
+languageCode = 'en-us'
+title = '𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹'
+theme = 'hugo-PaperMod'
+
+
+paginate = 5
+enableInlineShortcodes = true
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+enableEmoji = true
+pygmentsUseClasses = true
+
+[minify]
+disableXML = true
+
+title = "PaperModL2"
+
+  [languages.en.taxonomies]
+  category = "FRcategories"
+  tag = "FRtags"
+  series = "FRseries"
+
+  [languages.en.profileMode]
+  enabled = true
+  title = "Greetings, I'm Bueller."
+  imageUrl = "https://pbs.twimg.com/profile_images/1602440190592659456/EKqBRU-c_400x400.jpg"
+  imageTitle = "ProfileMode image"
+  subtitle = "Systems engineer and open source malware researcher"
+
+    [[languages.en.profileMode.buttons]]
+    name = "Blog"
+    url = "posts/"
+
+    [[languages.en.profileMode.buttons]]
+    name = "Twitter"
+    url = "https://twitter.com/ffbueller"
+
+    [[languages.en.profileMode.buttons]]
+    name = "GitHub"
+    url = "https://github.com/teelrabbit"
+
+
