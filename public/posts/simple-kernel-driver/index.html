@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Simple Kernel Driver | 𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹</title>
+<meta name="keywords" content="">
+<meta name="description" content="Sample article showcasing basic Markdown syntax and formatting for HTML elements.">
+<meta name="author" content="FBueller">
+<link rel="canonical" href="https://master.d399a8x098uivu.amplifyapp.com/posts/simple-kernel-driver/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://master.d399a8x098uivu.amplifyapp.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://master.d399a8x098uivu.amplifyapp.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://master.d399a8x098uivu.amplifyapp.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://master.d399a8x098uivu.amplifyapp.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://master.d399a8x098uivu.amplifyapp.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Simple Kernel Driver" />
+<meta property="og:description" content="Sample article showcasing basic Markdown syntax and formatting for HTML elements." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://master.d399a8x098uivu.amplifyapp.com/posts/simple-kernel-driver/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-03-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-03-11T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Simple Kernel Driver"/>
+<meta name="twitter:description" content="Sample article showcasing basic Markdown syntax and formatting for HTML elements."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://master.d399a8x098uivu.amplifyapp.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Simple Kernel Driver",
+      "item": "https://master.d399a8x098uivu.amplifyapp.com/posts/simple-kernel-driver/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Simple Kernel Driver",
+  "name": "Simple Kernel Driver",
+  "description": "Sample article showcasing basic Markdown syntax and formatting for HTML elements.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Simple-Kernel-Driver INTRODUCTION A kernel module is a loadable kernel object that is executed directly onto the kernel. Kernel modules exist on ring zero [Operating systems typically have 4 rings including ‘0’ ] Understanding the different rings Ring 0 is the kernel Ring 1 is device drivers ring 2 is also used for device drivers ring 3 is for applications – The ring level has a direct correlation between the application/modules privileges Building module use the following commands make To install module sudo insmod main.ko To remove module sudo rmmod main Kernel module libary – Before starting first it is important to locate some specific locations on your current operating systems - These include your linux kernel module libraries -\t| These can be typically found in your ‘/usr/include/linux’ directory - | Documentation that will be referenced in this section can be found at - | https://tldp.org/LDP/lkmpg/2.6/html/lkmpg.html\nTail Script [For syslog/kernel input tracking] Simply uses the subprocess lib/module in python to simulate constant user input to track and [use the tail command to follow things loaded onto the kernel] #!/usr/bin/env python3.8 import subprocess as sub import time import os import sys BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = '\\33[94m', '\\033[91m', '\\33[97m', '\\33[93m', '\\033[1;35m', '\\033[1;32m', '\\033[0m' if not os.geteuid() == 0: sys.exit(RED + '[-] must be run as root') runing = 1 def run(): print(GREEN + \"[+] EV LOG \u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\u003e\" + END) sub.run([\"tail\", \"/var/log/syslog\"]) while runing == 1: run() time.sleep(6) Using the correct libs When creating your first kennel mod, it is important to use the correct libraries. Header File All kernel modules must have a kernel.h lib and a module.h #include //needed by all modules #include //needed for KERN_INFO #include //Needed for macros Makefile Makefiles are used as a way of automating the compilation process, they define a set of tasks for your compiler to interpret, and use to compile In our example This makefile takes the object ‘main.o’ What are .o files? ‘.o’ files are known as object files. They contain machine code output from the assembler or compiler. obj-m += main.o all: make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules clean: make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean Main.c The “#include” tells the compiler to include the contents of the header file to main when it is being compiled The “header.h” file is used to store different library locations using “#include” instead of having them inside of our main file breakdown What is a function header? A function header is the first line of a function that establishes the type of function it is (return type), the name, and what type of things it can take in (i.e parameters) ex: “int example(void)”\n“int” is the the return type. Int stand for integer, so we know this function will return a number when it is completed. “example” is the functions name, this will be used later when calling the function. Void is the parameter, the parameters is what the function is capable of taking in. This can be any data type (int, float, double, void etc). In this example the void data type is used.\nWhat is a Void data type? When void is declared it is actually the representation of no data type. It is often used to show that no parameter of data type is being passed in the function.\nThe first function header can be broken down into 3 parts [rerun type, funct name, Parameter]\n#include \"header.h\" static int exampleInit (void) { printk(KERN_INFO \"EXAMPLE ENTER\\n\"); return 0; } static void exampleExit (void) { printk(KERN_INFO \"Module EXIT\"); } module_init(exampleInit); module_exit(exampleExit); MODULE_LICENSE(\"GPL\"); } The Printk Function - printk is a function used to log information for the kernel or give warnings - printk statements come with different levels of priority (there are 8 levels of priority) - The priority used in our printk statement is ‘KERN_INFO’ or ‘1’. The meanings for these levels are defined in “linux/kernel.h” - if a priority level is not specified the default one assigned will be “DEFUALT_ MESSAGE_LOGLEVEL” - [NOTE] - The linux/kernel module is responsible for kernel alert function (i.e printk) - before typing our example message the priority level is specified using “KERN_INFO” The “module_init(exampleInit)” and “module_exit(exampleExit)” are used to signal for the program to use the two functions made above. Making variables when making variables in a kernel module the macro “__initdata” is used static int exampleVar__initdata = 3; The __initdata is added to the end of the variable (i.e the macro) which will be replaced by the the comelier later with code from the init.h library which defines our macros. when added to our code it will look like this: #include /* Needed by all modules */ #include /* Needed for KERN_INFO */ #include /* Needed for the macros */ static int testVar __initdata = 3; static int __init enterInit(void) { printk(KERN_INFO \"Hello, world %d\\n\", testVar __initdata); return 0; } static void __exit exitMessage(void) { printk(KERN_INFO \"Goodbye, world 3\\n\"); } module_init(hello_3_init); module_exit(hello_3_exit); Licensing When making a kernel module licensing is very important. because the device will pickup on the licensing when your km is being ran on the kernel This can be done in our code by using the following macros - MODULE_DESCRIPTION() - MODULE_AUTHOR() - MODULE_SUPPORTED_DEVICE() First it is important to start with defining the information needed for those macros, this will look like the code bellow #define DRIVER_AUTHOR \"Peter Jay Salzman \" #define DRIVER_DESC \"A sample driver\" MODULE_AUTHOR(DRIVER_AUTHOR);\t/* Who wrote this module? */ MODULE_DESCRIPTION(DRIVER_DESC);\t/* What does this module do */ Passing Command Line Arguments | Module Param To start using command line input, first you need to use the correct library the library you will be using is linux/moduleparam.h the structure when using this library will look similar to whats bellow int myint 3; module_param(myint, int, 0); module param uses three different arguments, the first is the variables name, then its corresponding data type, and finally its permission which in this example is 0; for arrays it will look like int myintarray[2]; module_param_array(myintarray, int, NULL, 0); /* not interested in count */ The format is name, type, number, and privilege (note that in our example the number is NULL) -This is mainly used to set the permission for the module param, but with out running the command “module_param(examplestr, charp, 0)” the km wil still take userinput when it is being insmod’ed example=“insmod main.ko examplestr=“example” Information on splitting files Example 2-8. start.c\n/* * start.c - Illustration of multi filed modules */ #include /* We're doing kernel work */ #include /* Specifically, a module */ int init_module(void) { printk(KERN_INFO \"Hello, world - this is the kernel speaking\\n\"); return 0; } The next file: Example 2-9. stop.c\n/* * stop.c - Illustration of multi filed modules */ #include /* We're doing kernel work */ #include /* Specifically, a module */ void cleanup_module() { printk(KERN_INFO \"Short is the life of a kernel module\\n\"); } And finally, the makefile: **Example 2-10. Makefile** obj-m += hello-1.o obj-m += hello-2.o obj-m += hello-3.o obj-m += hello-4.o obj-m += hello-5.o obj-m += startstop.o startstop-objs := start.o stop.o all: make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules clean: make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean This is the complete makefile for all the examples we’ve seen so far. The first five lines are nothing special, but for the last example we’ll need two lines. First we invent an object name for our combined module, second we tell make what object files are part of that module. Modules Vs Programs Some things that are universal to all kernel module, normal programs typicaly start with a main() function Kernel modules are different in the aspect that they will always start an end with a module_init and ends with a module_exit or cleanup_module checking symbols that have been exported by your kernel they can be found in /proc/ kallsyms an example of a symbol exported by the kernel is printk these symbols are defined by the kernel and do not come from an external library they are initialized when your km is insmoded, this because kms are object files The difrence between syscalls and regular functions regular functions such s printf exist purely in the user space (ring 3), while system calls exist on the kernel level directly on the behalf of the kernel itself all functions like printf do is format data into strings and output them from a lower level syscall like write(). Things related to the CPU Your CPU can run in different modes each mode gives you a different level of freedom, the intell 80386 architecture has 4 modes those 4 modes are called rings unix only uses two rings (ring 0 being the highest ‘supervisor mode’) Name space notes When making global varies they become apart of everyone elses list of global variables and cause name space pollution (which i when global variables of the same name begin causing problems) Ways to combat this is to declare your variables as static and use well define prefix symbols if you would like too avoid declaring everything as static, another option is to create/declare a symbol table Checking Module info to check a kernel modules information simply use the command “modinfo example.ko” Code space When a process i created, the kernel sets aside a portion of real physical mempory, and it gives it to a process to use for executing code this memory begins with 0x00000000 and extends to whatever it needs Major and Minor numbers [IMPOERTANT] If you want to see which major numbers have been assigned, you can look at /usr/src/linux/Documentation/devices.txt. or in /proc/devices THESE SCRENSHOTS WERE TAKEN FROM THE DIRECTORY /dev/ ![[Pasted image 20220201005729.png]] Major number tell you with drivers are beg used to access the hardware all device files with the same major number are being controlled by the same driver minor numbers is the second number minor numbers distinguishes the between the different hardware it uses So devices files can have the same major number butt may have different minor numbers for the hardware they control ![[Pasted image 20220201010255.png]] Different types of devices Devices come in two types, character devices and block devices This can be seen by the first character in the permissions area, it will be a “b” for block and a “c” for character ![[Pasted image 20220201010701.png]]\nThe major differences between block devices and character devices is the character devices can use s many bits as they need block devices can only can buffer or function with fixed block sizes modes devices are character devices note that when a device file is used the file is acesse by the kernel useing the majhor number, which also means the kernel does not really need to know the minor number Making device files creating device files can be done with the command mknod example c 12 2 - to breakdown the command, mknod is called to create a new device file - next is the name of the device file - then the device file type which is either a charcter or a block, in this example it is a charcter - lastly the major and minor numbers are established, major being to destinguish the driver and the minor for what peice of hardware the device file is using Character Device drivers The file operations structure is defended by linux/fs.h every character driver needs to define a file structure the file_operations structure holds the address of the modules function that preforms something defining a file structure can look diffrent depending on the syntax, there is two popuar one the gcc syntax for assigning a structure looks like struct file_operations fops = { read: device_read, write: device_write, open: device_open, release: device_release }; The C99 syntax does the same thing but looks like\nstruct fie_operations fos = { .read = device_read, .write = device_write, .open = device_open, .release = device_release }; when adding a driver to your system it has to be registered with the kernel This is synonymous with assigning it a major number during a modules initialization This can be done by using the register_chardev function (which comes from linux/fs.h) This will look like the code bellow int register_chrdev(unsigned int major, const char *name, struct file_operations *fops); -\tto breakdown the code above: - first is the function name \"int register_chrdev\" - Then for the parameters unsigned int major is to request the major number you want for the device ( note if your deice recives a negitve major number it failed to load ) - then the parameter const char *name is is the name of the device as it can be view in /proc/devices - the last parameter struct file_operations *fops is a pointer to the file_operations table for your driver How to dynamically assign a major number set your devices major number to 0, and and it will dynamically be assigned a major number FOPS = FILE OPERATION STRUCTURE ",
+  "wordCount" : "2153",
+  "inLanguage": "en",
+  "datePublished": "2019-03-11T00:00:00Z",
+  "dateModified": "2019-03-11T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "FBueller"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://master.d399a8x098uivu.amplifyapp.com/posts/simple-kernel-driver/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://master.d399a8x098uivu.amplifyapp.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://master.d399a8x098uivu.amplifyapp.com" accesskey="h" title="𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹 (Alt + H)">𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Simple Kernel Driver
+    </h1>
+    <div class="post-description">
+      Sample article showcasing basic Markdown syntax and formatting for HTML elements.
+    </div>
+    <div class="post-meta"><span title='2019-03-11 00:00:00 +0000 UTC'>March 11, 2019</span>&nbsp;·&nbsp;FBueller
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#simple-kernel-driver" aria-label="Simple-Kernel-Driver">Simple-Kernel-Driver</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#introduction" aria-label="INTRODUCTION">INTRODUCTION</a><ul>
+                        <ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#understanding-the-different-rings" aria-label="Understanding the different rings">Understanding the different rings</a></li></ul>
+                    </ul>
+                    </ul>
+                </li></ul>
+                    
+                <li>
+                    <a href="#building-module" aria-label="Building module">Building module</a></li>
+                <li>
+                    <a href="#to-install-module" aria-label="To install module">To install module</a></li>
+                <li>
+                    <a href="#to-remove-module" aria-label="To remove module">To remove module</a></li>
+                <li>
+                    <a href="#kernel-module-libary" aria-label="Kernel module libary">Kernel module libary</a></li>
+                <li>
+                    <a href="#tail-script-for-syslogkernel-input-tracking" aria-label="Tail Script [For syslog/kernel input tracking]">Tail Script [For syslog/kernel input tracking]</a><ul>
+                        
+                <li>
+                    <a href="#using-the-correct-libs" aria-label="Using the correct libs">Using the correct libs</a><ul>
+                        <ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#header-file" aria-label="Header File">Header File</a></li>
+                <li>
+                    <a href="#makefile" aria-label="Makefile">Makefile</a></li>
+                <li>
+                    <a href="#mainc" aria-label="Main.c">Main.c</a></li>
+                <li>
+                    <a href="#breakdown" aria-label="breakdown">breakdown</a></li></ul>
+                    </ul>
+                    
+                <li>
+                    <a href="#making-variables" aria-label="Making variables">Making variables</a></li>
+                <li>
+                    <a href="#licensing" aria-label="Licensing">Licensing</a></li></ul>
+                </li>
+                <li>
+                    <a href="#passing-command-line-arguments--module-param" aria-label="Passing Command Line Arguments | Module Param">Passing Command Line Arguments | Module Param</a></li>
+                <li>
+                    <a href="#information-on-splitting-files" aria-label="Information on splitting files">Information on splitting files</a></li>
+                <li>
+                    <a href="#modules-vs-programs" aria-label="Modules Vs Programs">Modules Vs Programs</a></li>
+                <li>
+                    <a href="#checking-symbols-that-have-been-exported-by-your-kernel" aria-label="checking symbols that have been exported by your kernel">checking symbols that have been exported by your kernel</a></li>
+                <li>
+                    <a href="#the-difrence-between-syscalls-and--regular-functions" aria-label="The difrence between syscalls and  regular functions">The difrence between syscalls and  regular functions</a></li>
+                <li>
+                    <a href="#things-related-to-the-cpu" aria-label="Things related to the CPU">Things related to the CPU</a></li>
+                <li>
+                    <a href="#name-space-notes" aria-label="Name space notes">Name space notes</a></li></ul>
+                </li>
+                <li>
+                    <a href="#checking-module-info" aria-label="Checking Module info">Checking Module info</a><ul>
+                        
+                <li>
+                    <a href="#code-space" aria-label="Code space">Code space</a></li></ul>
+                </li>
+                <li>
+                    <a href="#major-and-minor-numbers" aria-label="Major and Minor numbers">Major and Minor numbers</a><ul>
+                        
+                <li>
+                    <a href="#impoertant-if-you-want-to-see-which-major-numbers-have-been-assigned-you-can-look-at-usrsrclinuxdocumentationdevicestxt-or-in-procdevices" aria-label="[IMPOERTANT] If you want to see which major numbers have been assigned, you can look at /usr/src/linux/Documentation/devices.txt. or in /proc/devices">[IMPOERTANT] If you want to see which major numbers have been assigned, you can look at /usr/src/linux/Documentation/devices.txt. or in /proc/devices</a></li></ul>
+                </li>
+                <li>
+                    <a href="#different-types-of-devices" aria-label="Different types of devices">Different types of devices</a></li>
+                <li>
+                    <a href="#making-device-files" aria-label="Making device files">Making device files</a></li>
+                <li>
+                    <a href="#character-device-drivers" aria-label="Character Device drivers">Character Device drivers</a></li>
+                <li>
+                    <a href="#how-to-dynamically-assign-a-major-number" aria-label="How to dynamically assign a major number">How to dynamically assign a major number</a></li></ul>
+                </li>
+                <li>
+                    <a href="#fops--file-operation-structure" aria-label="FOPS = FILE OPERATION STRUCTURE">FOPS = FILE OPERATION STRUCTURE</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="simple-kernel-driver">Simple-Kernel-Driver<a hidden class="anchor" aria-hidden="true" href="#simple-kernel-driver">#</a></h1>
+<h3 id="introduction">INTRODUCTION<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<ul>
+<li>A kernel module is a loadable kernel object that is executed directly onto the kernel.</li>
+<li>Kernel modules exist on ring zero [Operating systems typically have 4 rings including &lsquo;0&rsquo; ]</li>
+</ul>
+<h6 id="understanding-the-different-rings">Understanding the different rings<a hidden class="anchor" aria-hidden="true" href="#understanding-the-different-rings">#</a></h6>
+<ul>
+<li>Ring 0 is the kernel</li>
+<li>Ring 1 is device drivers</li>
+<li>ring 2 is also used for device drivers</li>
+<li>ring 3 is for applications
+&ndash; The ring level has a direct correlation between the application/modules privileges</li>
+</ul>
+<h2 id="building-module">Building module<a hidden class="anchor" aria-hidden="true" href="#building-module">#</a></h2>
+<ul>
+<li>use the following commands</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make 
+</span></span></code></pre></div><h2 id="to-install-module">To install module<a hidden class="anchor" aria-hidden="true" href="#to-install-module">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo insmod main.ko
+</span></span></code></pre></div><h2 id="to-remove-module">To remove module<a hidden class="anchor" aria-hidden="true" href="#to-remove-module">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo rmmod main
+</span></span></code></pre></div><h2 id="kernel-module-libary">Kernel module libary<a hidden class="anchor" aria-hidden="true" href="#kernel-module-libary">#</a></h2>
+<p>&ndash; Before starting first it is important to locate some specific locations on your current operating systems
+- These include your linux kernel module libraries
+-	| These can be typically found in your &lsquo;/usr/include/linux&rsquo; directory
+- 	| Documentation that will be referenced in this section can be found at
+- 	| <a href="https://tldp.org/LDP/lkmpg/2.6/html/lkmpg.html">https://tldp.org/LDP/lkmpg/2.6/html/lkmpg.html</a></p>
+<h2 id="tail-script-for-syslogkernel-input-tracking">Tail Script [For syslog/kernel input tracking]<a hidden class="anchor" aria-hidden="true" href="#tail-script-for-syslogkernel-input-tracking">#</a></h2>
+<ul>
+<li>Simply uses the subprocess lib/module in python to simulate constant user input to track and [use the tail command to follow things loaded onto the kernel]</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3.8</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sub</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">BLUE</span><span class="p">,</span> <span class="n">RED</span><span class="p">,</span> <span class="n">WHITE</span><span class="p">,</span> <span class="n">YELLOW</span><span class="p">,</span> <span class="n">MAGENTA</span><span class="p">,</span> <span class="n">GREEN</span><span class="p">,</span> <span class="n">END</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\33</span><span class="s1">[94m&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\33</span><span class="s1">[97m&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\33</span><span class="s1">[93m&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1;35m&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[1;32m&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[0m&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">geteuid</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">RED</span> <span class="o">+</span> <span class="s1">&#39;[-] must be run as root&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">runing</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">GREEN</span> <span class="o">+</span> <span class="s2">&#34;[+] EV LOG &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&#34;</span> <span class="o">+</span> <span class="n">END</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sub</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s2">&#34;tail&#34;</span><span class="p">,</span> <span class="s2">&#34;/var/log/syslog&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="n">runing</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="using-the-correct-libs">Using the correct libs<a hidden class="anchor" aria-hidden="true" href="#using-the-correct-libs">#</a></h3>
+<ul>
+<li>When creating your first kennel mod, it is important to use the correct libraries.</li>
+</ul>
+<h6 id="header-file">Header File<a hidden class="anchor" aria-hidden="true" href="#header-file">#</a></h6>
+<ul>
+<li>All kernel modules must have a kernel.h lib and a module.h</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/module.h&gt; //needed by all modules</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/kernel.h&gt; //needed for KERN_INFO</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/init.h&gt;   //Needed for macros</span><span class="cp">
+</span></span></span></code></pre></div><h6 id="makefile">Makefile<a hidden class="anchor" aria-hidden="true" href="#makefile">#</a></h6>
+<ul>
+<li>Makefiles are used as a way of automating the compilation process, they define a set of tasks for your compiler to interpret, and use to compile</li>
+<li>In our example This makefile takes the object &lsquo;main.o&rsquo;</li>
+<li>What are .o files? &lsquo;.o&rsquo; files are known as object files. They contain machine code output from the assembler or compiler.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">obj-m +<span class="o">=</span> main.o
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">all:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">make -C /lib/modules/<span class="k">$(</span>shell uname -r<span class="k">)</span>/build <span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span> modules
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">clean:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">make -C /lib/modules/<span class="k">$(</span>shell uname -r<span class="k">)</span>/build <span class="nv">M</span><span class="o">=</span><span class="k">$(</span>PWD<span class="k">)</span> clean
+</span></span></code></pre></div><h6 id="mainc">Main.c<a hidden class="anchor" aria-hidden="true" href="#mainc">#</a></h6>
+<ul>
+<li>The &ldquo;#include&rdquo; tells the compiler to include the contents of the header file to main when it is being compiled</li>
+<li>The &ldquo;header.h&rdquo; file is used to store different library locations using &ldquo;#include&rdquo; instead of having them inside of our main file</li>
+</ul>
+<h6 id="breakdown">breakdown<a hidden class="anchor" aria-hidden="true" href="#breakdown">#</a></h6>
+<ul>
+<li>
+<p>What is a function header? A function header is the first line of a function that establishes the type of function it is (return type), the name, and what type of things it can take in (i.e parameters) ex: &ldquo;int example(void)&rdquo;</p>
+</li>
+<li>
+<p>&ldquo;int&rdquo; is the the return type. Int stand for integer, so we know this function will return a number when it is completed. &ldquo;example&rdquo; is the functions name, this will be used later when calling the function. Void is the parameter, the parameters is what the function is capable of taking in. This can be any data type (int, float, double, void etc). In this example the void data type is used.</p>
+</li>
+<li>
+<p>What is a Void data type? When void is declared it is actually the representation of no data type. It is often used to show that no parameter of data type is being passed in the function.</p>
+</li>
+<li>
+<p>The first function header can be broken down into 3 parts [rerun type, funct name, Parameter]</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;header.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="nf">exampleInit</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;EXAMPLE ENTER</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">exampleExit</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;Module EXIT&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">module_init</span><span class="p">(</span><span class="n">exampleInit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">module_exit</span><span class="p">(</span><span class="n">exampleExit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_LICENSE</span><span class="p">(</span><span class="s">&#34;GPL&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
+<li>The Printk Function
+- printk is a function used to log information for the kernel or give warnings
+- printk statements come with different levels of priority (there are 8 levels of priority)
+- The priority used in our printk statement is &lsquo;KERN_INFO&rsquo; or &lsquo;1&rsquo;. The meanings for these levels are defined in &ldquo;linux/kernel.h&rdquo;
+- if a priority level is not specified the default one assigned will be &ldquo;DEFUALT_ MESSAGE_LOGLEVEL&rdquo;
+- [NOTE]
+- The linux/kernel module is responsible for kernel alert function (i.e printk)
+- before typing our example message the priority level is specified using &ldquo;KERN_INFO&rdquo;</li>
+<li>The &ldquo;module_init(exampleInit)&rdquo; and &ldquo;module_exit(exampleExit)&rdquo; are used to signal for the program to use the two functions made above.</li>
+</ul>
+<hr>
+<h4 id="making-variables">Making variables<a hidden class="anchor" aria-hidden="true" href="#making-variables">#</a></h4>
+<ul>
+<li>when making variables in a kernel module the macro &ldquo;__initdata&rdquo; is used</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="n">exampleVar__initdata</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span></code></pre></div><ul>
+<li>The __initdata is added to the end of the variable (i.e the macro) which will be replaced by the the comelier later with code from the init.h library which defines our macros.</li>
+<li>when added to our code it will look like this:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/module.h&gt;	/* Needed by all modules */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/kernel.h&gt;	/* Needed for KERN_INFO */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/init.h&gt;		/* Needed for the macros */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="n">testVar</span> <span class="n">__initdata</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">int</span> <span class="n">__init</span> <span class="nf">enterInit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;Hello, world %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">testVar</span> <span class="n">__initdata</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="n">__exit</span> <span class="nf">exitMessage</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;Goodbye, world 3</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">module_init</span><span class="p">(</span><span class="n">hello_3_init</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">module_exit</span><span class="p">(</span><span class="n">hello_3_exit</span><span class="p">);</span>
+</span></span></code></pre></div><h4 id="licensing">Licensing<a hidden class="anchor" aria-hidden="true" href="#licensing">#</a></h4>
+<ul>
+<li>When making a kernel module licensing is very important. because the device will pickup on the licensing when your km is being ran on the kernel</li>
+<li>This can be done in our code by using the following macros
+- MODULE_DESCRIPTION()
+- MODULE_AUTHOR()
+-  MODULE_SUPPORTED_DEVICE()</li>
+<li>First it is important to start with defining the information needed for those macros, this will look like the code bellow</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define DRIVER_AUTHOR &#34;Peter Jay Salzman &lt;p@dirac.org&gt;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define DRIVER_DESC   &#34;A sample driver&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_AUTHOR</span><span class="p">(</span><span class="n">DRIVER_AUTHOR</span><span class="p">);</span>	<span class="cm">/* Who wrote this module? */</span>
+</span></span><span class="line"><span class="cl"><span class="nf">MODULE_DESCRIPTION</span><span class="p">(</span><span class="n">DRIVER_DESC</span><span class="p">);</span>	<span class="cm">/* What does this module do */</span>
+</span></span></code></pre></div><h3 id="passing-command-line-arguments--module-param">Passing Command Line Arguments | Module Param<a hidden class="anchor" aria-hidden="true" href="#passing-command-line-arguments--module-param">#</a></h3>
+<ul>
+<li>To start using command line input, first you need to use the correct library</li>
+<li>the library you will be using is linux/moduleparam.h</li>
+<li>the structure when using this library will look similar to whats bellow</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">myint</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">module_param</span><span class="p">(</span><span class="n">myint</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
+<li>module param uses three different arguments, the first is the variables name, then its corresponding data type, and finally its permission which in this example is 0;</li>
+<li>for arrays it will look like</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">myintarray</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nf">module_param_array</span><span class="p">(</span><span class="n">myintarray</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="cm">/* not interested in count */</span>
+</span></span></code></pre></div><ul>
+<li>The format is name, type, number, and privilege (note that in our example the number is NULL)</li>
+<li>-This is mainly used to set the permission for the module param, but with out running the command &ldquo;module_param(examplestr, charp, 0)&rdquo; the km wil still take userinput when it is being insmod&rsquo;ed example=&ldquo;insmod main.ko examplestr=&ldquo;example&rdquo;</li>
+</ul>
+<h3 id="information-on-splitting-files">Information on splitting files<a hidden class="anchor" aria-hidden="true" href="#information-on-splitting-files">#</a></h3>
+<p><strong>Example 2-8. start.c</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *  start.c - Illustration of multi filed modules
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/kernel.h&gt;	/* We&#39;re doing kernel work */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/module.h&gt;	/* Specifically, a module */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">init_module</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;Hello, world - this is the kernel speaking</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">The</span> <span class="n">next</span> <span class="nl">file</span><span class="p">:</span>
+</span></span></code></pre></div><p><strong>Example 2-9. stop.c</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *  stop.c - Illustration of multi filed modules
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/kernel.h&gt;	/* We&#39;re doing kernel work */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/module.h&gt;	/* Specifically, a module  */</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">cleanup_module</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">printk</span><span class="p">(</span><span class="n">KERN_INFO</span> <span class="s">&#34;Short is the life of a kernel module</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">And</span> <span class="n">finally</span><span class="p">,</span> <span class="n">the</span> <span class="nl">makefile</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">**</span><span class="n">Example</span> <span class="mi">2</span><span class="o">-</span><span class="mf">10.</span> <span class="n">Makefile</span><span class="o">**</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="o">-</span><span class="n">m</span> <span class="o">+=</span> <span class="n">hello</span><span class="o">-</span><span class="mf">1.</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="o">-</span><span class="n">m</span> <span class="o">+=</span> <span class="n">hello</span><span class="o">-</span><span class="mf">2.</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="o">-</span><span class="n">m</span> <span class="o">+=</span> <span class="n">hello</span><span class="o">-</span><span class="mf">3.</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="o">-</span><span class="n">m</span> <span class="o">+=</span> <span class="n">hello</span><span class="o">-</span><span class="mf">4.</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="o">-</span><span class="n">m</span> <span class="o">+=</span> <span class="n">hello</span><span class="o">-</span><span class="mf">5.</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="n">obj</span><span class="o">-</span><span class="n">m</span> <span class="o">+=</span> <span class="n">startstop</span><span class="p">.</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="n">startstop</span><span class="o">-</span><span class="nl">objs</span> <span class="p">:</span><span class="o">=</span> <span class="n">start</span><span class="p">.</span><span class="n">o</span> <span class="n">stop</span><span class="p">.</span><span class="n">o</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">all</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">make</span> <span class="o">-</span><span class="n">C</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="err">$</span><span class="p">(</span><span class="n">shell</span> <span class="n">uname</span> <span class="o">-</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="n">build</span> <span class="n">M</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">PWD</span><span class="p">)</span> <span class="n">modules</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">clean</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">make</span> <span class="o">-</span><span class="n">C</span> <span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="err">$</span><span class="p">(</span><span class="n">shell</span> <span class="n">uname</span> <span class="o">-</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="n">build</span> <span class="n">M</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">PWD</span><span class="p">)</span> <span class="n">clean</span>
+</span></span></code></pre></div><ul>
+<li>This is the complete makefile for all the examples we&rsquo;ve seen so far. The first five lines are nothing special, but for the last example we&rsquo;ll need two lines. First we invent an object name for our combined module, second we tell <strong>make</strong> what object files are part of that module.</li>
+</ul>
+<h3 id="modules-vs-programs">Modules Vs Programs<a hidden class="anchor" aria-hidden="true" href="#modules-vs-programs">#</a></h3>
+<ul>
+<li>Some things that are universal to all kernel module, normal programs typicaly start with a main() function</li>
+<li>Kernel modules are different in the aspect that they will always start an  end with a module_init and ends with a module_exit or cleanup_module</li>
+</ul>
+<h3 id="checking-symbols-that-have-been-exported-by-your-kernel">checking symbols that have been exported by your kernel<a hidden class="anchor" aria-hidden="true" href="#checking-symbols-that-have-been-exported-by-your-kernel">#</a></h3>
+<ul>
+<li>they can be found in /proc/ kallsyms</li>
+<li>an example of a symbol exported by the kernel is printk</li>
+<li>these symbols are defined by the kernel and do not come from an external library</li>
+<li>they are initialized when your km is insmoded, this because kms are object files</li>
+</ul>
+<h3 id="the-difrence-between-syscalls-and--regular-functions">The difrence between syscalls and  regular functions<a hidden class="anchor" aria-hidden="true" href="#the-difrence-between-syscalls-and--regular-functions">#</a></h3>
+<ul>
+<li>regular functions such s printf exist purely in the user space (ring 3), while system calls exist on the kernel level directly on the behalf of the kernel itself</li>
+<li>all functions like printf do is format data into strings and output them from a lower level syscall like write().</li>
+</ul>
+<h3 id="things-related-to-the-cpu">Things related to the CPU<a hidden class="anchor" aria-hidden="true" href="#things-related-to-the-cpu">#</a></h3>
+<ul>
+<li>Your CPU can run in different modes each mode gives you a different level of freedom,</li>
+<li>the intell 80386 architecture has 4 modes</li>
+<li>those 4 modes are called rings</li>
+<li>unix only uses two rings (ring 0 being the highest &lsquo;supervisor mode&rsquo;)</li>
+</ul>
+<h3 id="name-space-notes">Name space notes<a hidden class="anchor" aria-hidden="true" href="#name-space-notes">#</a></h3>
+<ul>
+<li>When making global varies they become apart of everyone elses list of global variables and cause name space pollution (which i when global  variables of the same name begin causing problems)</li>
+<li>Ways to combat this is to declare your variables as static and use well define prefix symbols</li>
+<li>if you would like too avoid declaring everything as static, another option is to create/declare a symbol table</li>
+</ul>
+<h2 id="checking-module-info">Checking Module info<a hidden class="anchor" aria-hidden="true" href="#checking-module-info">#</a></h2>
+<ul>
+<li>to check a kernel modules information simply use the command &ldquo;modinfo example.ko&rdquo;</li>
+</ul>
+<h3 id="code-space">Code space<a hidden class="anchor" aria-hidden="true" href="#code-space">#</a></h3>
+<ul>
+<li>When a process i created, the kernel sets aside a portion of real physical mempory, and it gives it to a process to use for executing code</li>
+<li>this memory begins with 0x00000000 and extends to whatever it needs</li>
+</ul>
+<h2 id="major-and-minor-numbers">Major and Minor numbers<a hidden class="anchor" aria-hidden="true" href="#major-and-minor-numbers">#</a></h2>
+<h3 id="impoertant-if-you-want-to-see-which-major-numbers-have-been-assigned-you-can-look-at-usrsrclinuxdocumentationdevicestxt-or-in-procdevices">[IMPOERTANT] If you want to see which major numbers have been assigned, you can look at /usr/src/linux/Documentation/devices.txt. or in /proc/devices<a hidden class="anchor" aria-hidden="true" href="#impoertant-if-you-want-to-see-which-major-numbers-have-been-assigned-you-can-look-at-usrsrclinuxdocumentationdevicestxt-or-in-procdevices">#</a></h3>
+<ul>
+<li>THESE SCRENSHOTS WERE TAKEN FROM THE DIRECTORY /dev/
+![[Pasted image 20220201005729.png]]</li>
+</ul>
+<hr>
+<ul>
+<li>Major number tell you with drivers are beg used to access the hardware</li>
+<li>all device files with the same major number are being controlled by the same driver</li>
+<li>minor numbers is the second number</li>
+<li>minor numbers distinguishes the between the different hardware it  uses
+So devices files can have the same major number butt may have different minor numbers for the hardware they control
+![[Pasted image 20220201010255.png]]</li>
+</ul>
+<h2 id="different-types-of-devices">Different types of devices<a hidden class="anchor" aria-hidden="true" href="#different-types-of-devices">#</a></h2>
+<ul>
+<li>Devices come in two types, character devices and block devices</li>
+<li>This can be seen by the first character in the permissions area, it will be a &ldquo;b&rdquo; for block and a &ldquo;c&rdquo; for character</li>
+</ul>
+<hr>
+<p>![[Pasted image 20220201010701.png]]</p>
+<hr>
+<ul>
+<li>The major differences between block devices and character devices is the character devices can use s many bits as they need</li>
+<li>block devices can only can buffer or function with fixed block sizes</li>
+<li>modes devices are character devices</li>
+<li>
+<ul>
+<li>note that when a device file is used the file is acesse by the kernel useing the majhor number, which also means the kernel does not really need to know the minor number</li>
+</ul>
+</li>
+</ul>
+<h2 id="making-device-files">Making device files<a hidden class="anchor" aria-hidden="true" href="#making-device-files">#</a></h2>
+<ul>
+<li>creating device files can be done with the command</li>
+</ul>
+<pre tabindex="0"><code class="language-bbash" data-lang="bbash">mknod example c 12 2 
+</code></pre><pre><code>- to breakdown the command, mknod is called to create a new device file
+- next is the name of the device file
+- then the device file type which is either a charcter or a block, in this example it is a charcter 
+- lastly the major and minor numbers are established, major being to destinguish the driver and the minor for what peice of hardware the device file is using 
+</code></pre>
+<h2 id="character-device-drivers">Character Device drivers<a hidden class="anchor" aria-hidden="true" href="#character-device-drivers">#</a></h2>
+<ul>
+<li>The file operations structure is defended by linux/fs.h</li>
+<li>every character driver needs to define a file structure</li>
+<li>the file_operations structure holds the address of the modules function that preforms something</li>
+<li>defining a file structure can look diffrent depending on the syntax, there is two popuar one</li>
+<li>the gcc syntax for assigning a structure looks like</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">file_operations</span> <span class="n">fops</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nl">read</span><span class="p">:</span> <span class="n">device_read</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nl">write</span><span class="p">:</span> <span class="n">device_write</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nl">open</span><span class="p">:</span> <span class="n">device_open</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nl">release</span><span class="p">:</span> <span class="n">device_release</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>The C99 syntax does the same thing but looks like</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">fie_operations</span> <span class="n">fos</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="p">.</span><span class="n">read</span> <span class="o">=</span> <span class="n">device_read</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">.</span><span class="n">write</span> <span class="o">=</span> <span class="n">device_write</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">.</span><span class="n">open</span> <span class="o">=</span> <span class="n">device_open</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">.</span><span class="n">release</span> <span class="o">=</span> <span class="n">device_release</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><ul>
+<li>when adding a driver to your system it has to be registered with the kernel</li>
+<li>This is synonymous with  assigning it a major number during a modules initialization</li>
+<li>This can be done by using the register_chardev function (which comes from linux/fs.h)</li>
+<li>This will look like the code bellow</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">register_chrdev</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">major</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="k">struct</span> <span class="n">file_operations</span> <span class="o">*</span><span class="n">fops</span><span class="p">);</span>
+</span></span></code></pre></div><pre><code>-	to breakdown the code above:
+- first is the function name &quot;int register_chrdev&quot;
+- Then for the parameters unsigned int major is to request the major number you want for the device ( note if your deice recives a negitve major number it failed to load )
+- then the parameter const char *name is is the name of the device as it can be view in /proc/devices 
+- the last parameter struct file_operations *fops is a pointer to the file_operations table for your driver 
+</code></pre>
+<h2 id="how-to-dynamically-assign-a-major-number">How to dynamically assign a major number<a hidden class="anchor" aria-hidden="true" href="#how-to-dynamically-assign-a-major-number">#</a></h2>
+<ul>
+<li>set your devices major number to 0, and and it will dynamically be assigned a major number</li>
+</ul>
+<h1 id="fops--file-operation-structure">FOPS = FILE OPERATION STRUCTURE<a hidden class="anchor" aria-hidden="true" href="#fops--file-operation-structure">#</a></h1>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://master.d399a8x098uivu.amplifyapp.com/frtags/markdown/">markdown</a></li>
+      <li><a href="https://master.d399a8x098uivu.amplifyapp.com/frtags/css/">css</a></li>
+      <li><a href="https://master.d399a8x098uivu.amplifyapp.com/frtags/html/">html</a></li>
+      <li><a href="https://master.d399a8x098uivu.amplifyapp.com/frtags/themes/">themes</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://master.d399a8x098uivu.amplifyapp.com">𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

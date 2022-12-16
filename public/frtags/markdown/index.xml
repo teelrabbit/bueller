@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>markdown on 𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹</title>
+    <link>https://master.d399a8x098uivu.amplifyapp.com/frtags/markdown/</link>
+    <description>Recent content in markdown on 𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://master.d399a8x098uivu.amplifyapp.com/frtags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[HTB] Nibbles Writeup</title>
+      <link>https://master.d399a8x098uivu.amplifyapp.com/posts/nibbles-writeup/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://master.d399a8x098uivu.amplifyapp.com/posts/nibbles-writeup/</guid>
+      <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
+    </item>
+    
+    <item>
+      <title>Simple Kernel Driver</title>
+      <link>https://master.d399a8x098uivu.amplifyapp.com/posts/simple-kernel-driver/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://master.d399a8x098uivu.amplifyapp.com/posts/simple-kernel-driver/</guid>
+      <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
+    </item>
+    
+  </channel>
+</rss>
