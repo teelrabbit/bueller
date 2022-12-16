@@ -25,6 +25,15 @@
       <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://master.d399a8x098uivu.amplifyapp.com/posts/interview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://master.d399a8x098uivu.amplifyapp.com/posts/interview/</guid>
+      <description>What is a symlink a symlink stands for symbolic link symbolic links are for linux but a variation of the same technilogy exists on windows on windows a symbolic link is refered to as an &amp;ldquo;mk-link&amp;rdquo; they can be used if you want to move a file or directory but you still want it to point to the same loction (so it is symboliclly linked) this can be done using the following command ln -s &amp;lt;directiory of the file you want&amp;gt; &amp;lt;the name of the link file&amp;gt; the &amp;ldquo;-s&amp;rdquo; stands for symbolic link the new link file will be made in the directory you are currenly in or specify Hardlinks vs Softlinks every file inside you filesystem has a corresponding inode inodes are databases of file, it contains information about file an inode contains file_size, permissoons, file_type, number of links Soft Link softlinks are like shortcuts (i.</description>
+    </item>
+    
     
   </channel>
 </rss>
