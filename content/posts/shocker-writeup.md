@@ -8,7 +8,7 @@ FRseries: ["Themes Guide"]
 aliases: ["migrate-from-jekyl"]
 ShowToc: true
 TocOpen: true
-weight: 2-
+weight: 2
 ---
 
 ```bash
