@@ -1,7 +1,14 @@
 ---
 title: "Shocker Writeup HTB"
 date: 2022-12-16T21:49:08-08:00
-draft: true
+description: "Sample article showcasing basic Markdown syntax and formatting for HTML elements."
+FRtags: ["markdown", "css", "html", "themes"]
+FRcategories: ["themes", "syntax"]
+FRseries: ["Themes Guide"]
+aliases: ["migrate-from-jekyl"]
+ShowToc: true
+TocOpen: true
+weight: 2
 ---
 
 ```bash
