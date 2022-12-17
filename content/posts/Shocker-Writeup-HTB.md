@@ -1,6 +1,7 @@
 ---
+author: "FBueller"
 title: "Shocker Writeup HTB"
-date: 2022-12-16T21:49:08-08:00
+date: "2022-12-16T21:49:08-08:00"
 description: "Sample article showcasing basic Markdown syntax and formatting for HTML elements."
 FRtags: ["markdown", "css", "html", "themes"]
 FRcategories: ["themes", "syntax"]
@@ -10,7 +11,7 @@ ShowToc: true
 TocOpen: true
 weight: 2
 ---
-
+##### [HTB SHOCKER]
 ```bash
 GET /cgi-bin/user.sh HTTP/1.1
 Host: 10.10.10.56
