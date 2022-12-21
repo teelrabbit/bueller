@@ -27,10 +27,10 @@
     
     <item>
       <title>test</title>
-      <link>https://master.d399a8x098uivu.amplifyapp.com/posts/my-first-post/</link>
+      <link>https://master.d399a8x098uivu.amplifyapp.com/my-first-post/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://master.d399a8x098uivu.amplifyapp.com/posts/my-first-post/</guid>
+      <guid>https://master.d399a8x098uivu.amplifyapp.com/my-first-post/</guid>
       <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
     </item>
     
