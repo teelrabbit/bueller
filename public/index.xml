@@ -6,7 +6,7 @@
     <description>Recent content on 𝕱 𝕭̣𝖚̣𝖊̇𝖑̣𝖑̇𝖊̇𝖗 🌹</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://master.d399a8x098uivu.amplifyapp.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Dec 2022 15:04:39 -0800</lastBuildDate><atom:link href="https://master.d399a8x098uivu.amplifyapp.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[HTB] Nibbles Writeup</title>
       <link>https://master.d399a8x098uivu.amplifyapp.com/posts/nibbles-writeup/</link>
@@ -23,6 +23,15 @@
       
       <guid>https://master.d399a8x098uivu.amplifyapp.com/posts/simple-kernel-driver/</guid>
       <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
+    </item>
+    
+    <item>
+      <title>Test</title>
+      <link>https://master.d399a8x098uivu.amplifyapp.com/posts/test/</link>
+      <pubDate>Wed, 21 Dec 2022 15:04:39 -0800</pubDate>
+      
+      <guid>https://master.d399a8x098uivu.amplifyapp.com/posts/test/</guid>
+      <description>test </description>
     </item>
     
     <item>
