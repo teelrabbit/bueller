@@ -1,6 +1,6 @@
 ---
 author: "FBueller"
-title: "[HTB] Nibbles Writeup"
+title: "test"
 date: "2019-03-11"
 description: "Sample article showcasing basic Markdown syntax and formatting for HTML elements."
 FRtags: ["markdown", "css", "html", "themes"]

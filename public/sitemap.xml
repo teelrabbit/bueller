@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://master.d399a8x098uivu.amplifyapp.com/posts/my-first-post/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://master.d399a8x098uivu.amplifyapp.com/posts/nibbles-writeup/</loc>
     <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://master.d399a8x098uivu.amplifyapp.com/posts/simple-kernel-driver/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://master.d399a8x098uivu.amplifyapp.com/posts/my-first-post/</loc>
     <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://master.d399a8x098uivu.amplifyapp.com/frtags/css/</loc>
