@@ -1,6 +1,6 @@
 ---
 author: "FBueller"
-title: "Simple Kernel Driver"
+title: "Simple simple"
 date: "2019-03-11"
 description: "Sample article showcasing basic Markdown syntax and formatting for HTML elements."
 FRtags: ["markdown", "css", "html", "themes"]
@@ -12,8 +12,6 @@ TocOpen: true
 weight: 2
 ---
 ![image](images/test.jpg)
-![image]("https://pbs.twimg.com/profile_images/1602485748715773953/bzK9ywav_400x400.jpg")
-<img class="special-img-class" src="posts/images/test.png" />
 # Simple-Kernel-Driver
 ### INTRODUCTION
 - A kernel module is a loadable kernel object that is executed directly onto the kernel.
